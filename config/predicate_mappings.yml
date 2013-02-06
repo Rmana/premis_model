@@ -14,9 +14,15 @@
 #   :oai_item_id => ["info:fedora/oai:example.edu:changeme:500"]
 #
 :predicate_mapping:
-  info:premis_container#: 
+  info:premis#: 
+    :has_container: hasContainer
+    :is_contained_in: isContainedIn
+    :is_event_of: isEventOf
+    :has_event: hasEvent
+    :has_rights_in: hasRightsIn
+    :has_rights: hasRights
     :is_agent_of: isAgentOf
-    :is_object_of: isObjectOf
+    :has_agent: hasAgent
   info:fedora/fedora-system:def/relations-external#: 
     :conforms_to: conformsTo
     :has_annotation: hasAnnotation

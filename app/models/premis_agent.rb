@@ -20,8 +20,8 @@ class PremisAgent < ActiveFedora::Base
   include Hydra::ModelMixins::CommonMetadata
   include Hydra::ModelMixins::RightsMetadata
 
-  belongs_to :premis_container, :property => :is_agent_of
-  # has_and_belongs_to_many :premis_containers, :class_name=>"premis_container", :property => :is_agent_of
+  has_and_belongs_to_many :premis_events, :property=>:is_agent_of, :inverse_of=>:has_agent
+  has_and_belongs_to_many :premis_rights, :property=>:is_agent_of, :inverse_of=>:has_agent
   has_metadata :name => 'adescMetadata', :type => PremisAgentDatastream
 
   # has_metadata :name => 'PremisAgentInternal', :type => ActiveFedora::SimpleDatastream do |c|
@@ -29,19 +29,26 @@ class PremisAgent < ActiveFedora::Base
   # end
   # delegate_to :PremisAgentInternal, [:agent_creator]
 
-  delegate_to 'adescMetadata', [:agent_identifierType, :agent_identifierValue, :agent_name, :agent_note, :agent_extension, :agent_type]
+  delegate_to 'adescMetadata', [:agent_identifierType, :agent_identifierValue, :agent_name, :agent_note, :agent_extension, :agent_type,
+                                :agent_linkingEventIdentifierType, :agent_linkingEventIdentifierValue, 
+                                :agent_linkingRightsStatementIdentifierType, :agent_linkingRightsStatementIdentifierValue]
 
+  validates :agent_identifierType, :presence=>true
+  validates :agent_identifierValue, :presence=>true
   validates_with MatchAgentValidator
 
   def initialize(attrs={})
      super()
      # for testing...
      # print "attribute=#{attrs[:node]}\n"
-     if attrs[:node] and (attrs[:node].name == "agent")
+     if attrs.nil?
+       # just leave it to default node, if none given
+     else
+     if attrs[:node] and (attrs[:node].name == "document")
        one_agent_xml = attrs[:node].to_xml.gsub!(/\t|\b|\n/,'')
        self.datastreams['adescMetadata'].content = one_agent_xml
-     else 
-       # TODO: Do something if either no node or node is NOT a premis agent node
+     else
+       # TODO: Do something if node is NOT a premis document node
      end
   end
 end
