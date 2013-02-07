@@ -30,7 +30,7 @@ class PremisRight < ActiveFedora::Base
   # delegate_to :PremisAgentInternal, [:agent_creator]
 
   delegate_to 'rdescMetadata', [:right_StatementIdentifierType, :right_StatementIdentifierValue, :right_copyrightStatus, :right_copyrightJurisdiction,
-                                :right_linkingObjectIdentifierType_GrantedAct, :right_GrantedRestriction
+                                :right_linkingObjectIdentifierType_GrantedAct, :right_GrantedRestriction,
                                 :right_linkingObjectIdentifierType, :right_linkingObjectIdentifierValue, :right_linkingObjectRole,
                                 :right_linkingAgentIdentifierType, :right_linkingAgentIdentifierValue, :right_linkingAgentRole]  
 

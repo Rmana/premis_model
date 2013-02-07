@@ -44,11 +44,12 @@ class PremisAgent < ActiveFedora::Base
      if attrs.nil?
        # just leave it to default node, if none given
      else
-     if attrs[:node] and (attrs[:node].name == "document")
-       one_agent_xml = attrs[:node].to_xml.gsub!(/\t|\b|\n/,'')
-       self.datastreams['adescMetadata'].content = one_agent_xml
-     else
-       # TODO: Do something if node is NOT a premis document node
+       if attrs[:node] and (attrs[:node].name == "document")
+         one_agent_xml = attrs[:node].to_xml.gsub!(/\t|\b|\n/,'')
+         self.datastreams['adescMetadata'].content = one_agent_xml
+       else
+         # TODO: Do something if node is NOT a premis document node
+       end
      end
   end
 end
