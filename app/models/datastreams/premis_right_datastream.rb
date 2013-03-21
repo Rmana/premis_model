@@ -37,17 +37,30 @@ class PremisRightDatastream < ActiveFedora::NokogiriDatastream
     Nokogiri::XML::Document.parse(File.new(File.join(File.dirname(__FILE__),'..', '..', '..', 'lib/medusa/default_datastream', "premis_right.xml")))
   end
 
-  def self.right_StatementIdentifier_template
+  def self.right_StatementIdentifier_template(type, value)
     builder = Nokogiri::XML::Builder.new do |xml|
-      xml.right_StatementIdentifierType
-      xml.right_StatementIdentifierValue
+      xml.rightsStatementIdentifier do
+        xml.rightsStatementIdentifierType_ type
+        xml.rightsStatementIdentifierValue_ value
+      end
     end
     return builder.doc.root
   end
 
-  # Inserts a new right_StatementIdentifier node into the premis rights
+  # Inserts a new right_StatementIdentifier node into the premis right.
+  #    USE: if a is PremisObject,
+  #      a.datastreams['adescMetadata'].insert_right_StatementIdentifier(:right_StatementIdentifierType=>"type_here", :right_StatementIdentifierValue=>"value_here")
+  #      a.datastreams['adescMetadata'].save    OR a.save to save premis object, rather than just datastream
   def insert_right_StatementIdentifier(opts={})
-    node = PremisRightDatastream.right_StatementIdentifier_template
+    type = nil
+    if !opts[:right_StatementIdentifierType].nil?
+       type = opts[:right_StatementIdentifierType]
+    end
+    value = nil
+    if !opts[:right_StatementIdentifierValue].nil?
+       value = opts[:right_StatementIdentifierValue]
+    end
+    node = PremisRightDatastream.right_StatementIdentifier_template(type, value)
     nodeset = self.find_by_terms(:right_StatementIdentifier)
 
     unless nodeset.nil?
@@ -58,7 +71,8 @@ class PremisRightDatastream < ActiveFedora::NokogiriDatastream
         nodeset.after(node)
         index = nodeset.length
       end
-      self.dirty = true
+      # deprecated...
+      # self.dirty = true
     end
       
     return node, index

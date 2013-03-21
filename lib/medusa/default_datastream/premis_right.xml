@@ -15,7 +15,15 @@
     </rightsGranted>
     <linkingObjectIdentifier>
       <linkingObjectIdentifierType>LOCAL</linkingObjectIdentifierType> 
-      <linkingObjectIdentifierValue>local_linked_object_one</linkingObjectIdentifierValue> 
+      <linkingObjectIdentifierValue>local_linked_object_one</linkingObjectIdentifierValue>
+      <linkingObjectRole></linkingObjectRole> 
     </linkingObjectIdentifier>
+    <linkingAgentIdentifier>
+      <linkingAgentIdentifierType>LOCAL</linkingAgentIdentifierType>
+      <linkingAgentIdentifierValue>MEDUSA_Agent_a</linkingAgentIdentifierValue>
+      <linkingAgentRole>administator</linkingAgentRole>
+    </linkingAgentIdentifier>
+  </rightsStatement>
+  <rightsStatement>
   </rightsStatement>
 </rights>

@@ -33,9 +33,9 @@ class PremisAgent < ActiveFedora::Base
                                 :agent_linkingEventIdentifierType, :agent_linkingEventIdentifierValue, 
                                 :agent_linkingRightsStatementIdentifierType, :agent_linkingRightsStatementIdentifierValue]
 
-  validates :agent_identifierType, :presence=>true
-  validates :agent_identifierValue, :presence=>true
-  validates_with MatchAgentValidator
+ #  validates :agent_identifierType, :presence=>true
+ #  validates :agent_identifierValue, :presence=>true
+ #  validates_with MatchAgentValidator
 
   def initialize(attrs={})
      super()

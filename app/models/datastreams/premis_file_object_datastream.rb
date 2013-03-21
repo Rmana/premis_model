@@ -3,9 +3,9 @@ class PremisFileObjectDatastream < ActiveFedora::NokogiriDatastream
   set_terminology do |t|
     t.root(:path=>'object', :xmlns=>'info:lc/xmlns/premis-v2', "xmlns:xsi"=>"http://www.w3.org/2001/XMLSchema-instance", :schema=>"http://www.loc.gov/standards/premis/v2/premis-v2-1.xsd")
 
-    t.object_file_Identifier(:path=>"object[@xsi:type='file']/oxns:objectIdentifier")
-      t.object_file_IdentifierType(:path=>"object[@xsi:type='file']/oxns:objectIdentifier/oxns:objectIdentifierType")
-      t.object_file_IdentifierValue(:path=>"object[@xsi:type='file']/oxns:objectIdentifier/oxns:objectIdentifierValue")
+    t.object_file_identifier(:path=>"object[@xsi:type='file']/oxns:objectIdentifier")
+      t.object_file_identifierType(:path=>"object[@xsi:type='file']/oxns:objectIdentifier/oxns:objectIdentifierType")
+      t.object_file_identifierValue(:path=>"object[@xsi:type='file']/oxns:objectIdentifier/oxns:objectIdentifierValue")
 
     t.object_file_characteristics_CompositionLevel(:path=>"object[@xsi:type='file']/oxns:objectCharacteristics/oxns:compositionLevel")
     t.object_file_characteristics_fixitymessageDigestAlgorithm(:path=>"object[@xsi:type='file']/oxns:objectCharacteristics/oxns:fixity/oxns:messageDigestAlgorithm")
@@ -49,18 +49,31 @@ class PremisFileObjectDatastream < ActiveFedora::NokogiriDatastream
     Nokogiri::XML::Document.parse(File.new(File.join(File.dirname(__FILE__),'..', '..', '..', 'lib/medusa/default_datastream', "premis_file_object.xml")))
   end
 
-  def self.object_file_Identifier_template
+  def self.object_file_identifier_template(type, value)
     builder = Nokogiri::XML::Builder.new do |xml|
-      xml.object_file_IdentifierType
-      xml.object_file_IdentifierValue
+      xml.objectIdentifier do
+        xml.objectIdentifierType_ type
+        xml.objectIdentifierValue_ value
+      end
     end
     return builder.doc.root
   end
 
-  # Inserts a new object_identifier node into the premis object
-  def insert_object_file_Identifier(opts={})
-    node = PremisFileObjectDatastream.object_file_Identifier_template
-    nodeset = self.find_by_terms(:object_file_Identifier)
+  # Inserts a new object_file_identifier node into the premis file object.
+  #   USE: if a is PremisObject,
+  #      a.datastreams['adescMetadata'].insert_object_file_identifier(:object_file_identifierType=>"type_here", :object_file_identifierValue=>"value_here")
+  #      a.datastreams['adescMetadata'].save    OR a.save to save premis object, rather than just datastream
+  def insert_object_file_identifier(opts={})
+    type = nil
+    if !opts[:object_file_identifierType].nil?
+       type = opts[:object_file_identifierType]
+    end
+    value = nil
+    if !opts[:object_file_identifierValue].nil?
+       value = opts[:object_file_identifierValue]
+    end
+    node = PremisFileObjectDatastream.object_file_identifier_template(type, value)
+    nodeset = self.find_by_terms(:object_file_identifier)
 
     unless nodeset.nil?
       if nodeset.empty?
@@ -70,7 +83,8 @@ class PremisFileObjectDatastream < ActiveFedora::NokogiriDatastream
         nodeset.after(node)
         index = nodeset.length
       end
-      self.dirty = true
+      # deprecated...
+      # self.dirty = true
     end
       
     return node, index

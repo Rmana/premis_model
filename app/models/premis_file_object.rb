@@ -1,8 +1,8 @@
 class MatchFileObjectValidator < ActiveModel::Validator
   def validate(record)
     # Make sure type/value pairs
-    if (record.object_file_IdentifierType.length != record.object_file_IdentifierValue.length)
-      record.errors[:object_file_IdentifierType] << "Identifier (file) type/value number mismatch"
+    if (record.object_file_identifierType.length != record.object_file_identifierValue.length)
+      record.errors[:object_file_identifierType] << "Identifier (file) type/value number mismatch"
     end
 
     if (record.object_file_linkingEventIdentifierType.length != record.object_file_linkingEventIdentifierValue.length)
@@ -37,7 +37,7 @@ class PremisFileObject < PremisGeneral
   # end
   # delegate_to :PremisFileObjectInternal, [:file_object_creator_in_fedora]
 
-  delegate_to 'fodescMetadata', [:object_file_IdentifierType, :object_file_IdentifierValue,
+  delegate_to 'fodescMetadata', [:object_file_identifierType, :object_file_identifierValue,
                                 :object_file_characteristics_CompositionLevel, :object_file_characteristics_fixitymessageDigestAlgorithm, :object_file_characteristics_fixitymessageDigest, :object_file_characteristics_fixitymessageDigestOriginator, :object_file_characteristics_size, :object_file_characteristics_formatName, :object_file_characteristics_formatVersion, :object_file_characteristics_formatRegistryName, :object_file_characteristics_formatRegistryKey, :object_file_characteristics_formatRegistryRole, :object_file_characteristics_creatingApplicationName, :object_file_characteristics_creatingApplicationVersion, :object_file_characteristics_dateCreatedByApplication,
                                 :object_file_preservationLevelValue, :object_file_preservationLevelDateAssigned,
                                 :object_file_originalName,
@@ -46,8 +46,8 @@ class PremisFileObject < PremisGeneral
                                 :object_file_linkingRightsStatementIdentifierType, :object_file_linkingRightsStatementIdentifierValue,
                                 :object_file_relationshipType, :object_file_relationshipSubType, :object_file_relatedObjectIdentifierType, :object_file_relatedObjectIdentifierValue]
 
-  validates :object_file_IdentifierType, :presence=>true
-  validates :object_file_IdentifierValue, :presence=>true
+  validates :object_file_identifierType, :presence=>true
+  validates :object_file_identifierValue, :presence=>true
   validates :object_file_characteristics_CompositionLevel, :presence=>true
   
   validates_with MatchFileObjectValidator

@@ -1,5 +1,17 @@
 class MatchEventValidator < ActiveModel::Validator
   def validate(record)
+    if (record.event_identifierType.length != 1)
+      record.errors[:event_identifierType] << "Event Identifier Type must be provided and used only once"
+    end
+    if (record.event_identifierValue.length != 1)
+      record.errors[:event_identifierValue] << "Event Identifier Value must be provided and used only once"
+    end
+    if (record.event_type.length != 1)
+      record.errors[:event_type] << "Event Type must be provided and used only once"
+    end
+    if (record.event_DateTime.length != 1)
+      record.errors[:event_DateTime] << "Event Identifier DateTime must be provided and used only once"
+    end
     # Make sure type/value pairs
     if (record.event_identifierType.length != record.event_identifierValue.length)
       record.errors[:event_identifierType] << "Event Identifier type/value number mismatch"
@@ -28,6 +40,10 @@ class PremisEvent < ActiveFedora::Base
                                 :event_linkingObjectIdentifierType, :event_linkingObjectIdentifierValue, :event_linkingObjectRole,
                                 :event_outcome, :event_outcomeDetailNote, :event_outcomeDetailExtension]
 
+  validates :event_identifierType, :presence=>true
+  validates :event_identifierValue, :presence=>true
+  validates :event_type, :presence=>true
+  validates :event_DateTime, :presence=>true
   validates_with MatchEventValidator
 
   def initialize(attrs={})

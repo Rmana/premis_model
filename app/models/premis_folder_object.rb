@@ -1,8 +1,8 @@
 class MatchFolderObjectValidator < ActiveModel::Validator
   def validate(record)
     # Make sure type/value pairs
-    if (record.object_folder_IdentifierType.length != record.object_folder_IdentifierValue.length)
-      record.errors[:object_folder_IdentifierType] << "Identifier (folder) type/value number mismatch"
+    if (record.object_folder_identifierType.length != record.object_folder_identifierValue.length)
+      record.errors[:object_folder_identifierType] << "Identifier (folder) type/value number mismatch"
     end
 
     if (record.object_folder_linkingEventIdentifierType.length != record.object_folder_linkingEventIdentifierValue.length)
@@ -37,7 +37,7 @@ class PremisFolderObject < PremisGeneral
   # end
   # delegate_to :PremisFolderObjectInternal, [:folder_object_creator_in_fedora]
 
-  delegate_to 'folodescMetadata', [:object_folder_IdentifierType, :object_folder_IdentifierValue,
+  delegate_to 'folodescMetadata', [:object_folder_identifierType, :object_folder_identifierValue,
                                 :object_folder_preservationLevelValue, :object_folder_preservationLevelRationale, :object_folder_preservationLevelDateAssigned,
                                 :object_folder_originalName,
                                 :object_folder_linkingEventIdentifierType, :object_folder_linkingEventIdentifierValue,
@@ -45,8 +45,8 @@ class PremisFolderObject < PremisGeneral
                                 :object_folder_linkingRightsStatementIdentifierType, :object_folder_linkingRightsStatementIdentifierValue,
                                 :object_folder_relationshipType, :object_folder_relationshipSubType, :object_folder_relatedObjectIdentifierType, :object_folder_relatedObjectIdentifierValue]
 
-  validates :object_folder_IdentifierType, :presence=>true
-  validates :object_folder_IdentifierValue, :presence=>true
+  validates :object_folder_identifierType, :presence=>true
+  validates :object_folder_identifierValue, :presence=>true
   
   validates_with MatchFolderObjectValidator
 

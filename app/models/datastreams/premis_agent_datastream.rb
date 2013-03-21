@@ -32,17 +32,30 @@ class PremisAgentDatastream < ActiveFedora::NokogiriDatastream
     Nokogiri::XML::Document.parse(File.new(File.join(File.dirname(__FILE__),'..', '..', '..', 'lib/medusa/default_datastream', "premis_agent.xml")))
   end
 
-  def self.agent_identifier_template
+  def self.agent_identifier_template(type, value)
     builder = Nokogiri::XML::Builder.new do |xml|
-      xml.agent_identifierType
-      xml.agent_identifierValue
+      xml.agentIdentifier do
+        xml.agentIdentifierType_ type
+        xml.agentIdentifierValue_ value
+      end
     end
     return builder.doc.root
   end
 
-  # Inserts a new agent_identifier node into the premis agent
+  # Inserts a new agent_identifier node into the premis agent.
+  #   USE: if a is PremisObject, 
+  #      a.datastreams['adescMetadata'].insert_agent_identifier(:agent_identifierType=>"type_here", :agent_identifierValue=>"value_here")
+  #      a.datastreams['adescMetadata'].save    OR a.save to save premis object, rather than just datastream
   def insert_agent_identifier(opts={})
-    node = PremisAgentDatastream.agent_identifier_template
+    type = nil
+    if !opts[:agent_identifierType].nil?
+       type = opts[:agent_identifierType]
+    end
+    value = nil
+    if !opts[:agent_identifierValue].nil?
+       value = opts[:agent_identifierValue]
+    end
+    node = PremisAgentDatastream.agent_identifier_template(type, value)
     nodeset = self.find_by_terms(:agent_identifier)
 
     unless nodeset.nil?
@@ -53,7 +66,8 @@ class PremisAgentDatastream < ActiveFedora::NokogiriDatastream
         nodeset.after(node)
         index = nodeset.length
       end
-      self.dirty = true
+      # deprecated... 
+      # self.dirty = true
     end
       
     return node, index
