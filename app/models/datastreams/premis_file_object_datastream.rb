@@ -22,6 +22,7 @@ class PremisFileObjectDatastream < ActiveFedora::NokogiriDatastream
     t.object_file_characteristics_dateCreatedByApplication(:path=>"object[@xsi:type='file']/oxns:objectCharacteristics/oxns:creatingApplication/oxns:dateCreatedByApplication")
 
     t.object_file_preservationLevelValue(:path=>"object[@xsi:type='file']/oxns:preservationLevel/oxns:preservationLevelValue")
+    t.object_file_preservationLevelRationale(:path=>"object[@xsi:type='file']/oxns:preservationLevel/oxns:preservationLevelRationale")
     t.object_file_preservationLevelDateAssigned(:path=>"object[@xsi:type='file']/oxns:preservationLevel/oxns:preservationLevelDateAssigned")
 
     t.object_file_originalName(:path=>"object[@xsi:type='file']/oxns:originalName")

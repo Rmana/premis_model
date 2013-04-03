@@ -1,11 +1,7 @@
 <object xsi:type="representation" version="2.2" xsi:schemaLocation="info:lc/xmlns/premis-v2 http://www.loc.gov/standards/premis/v2/premis-v2-2.xsd" xmlID="folder_000" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="info:lc/xmlns/premis-v2">
   <objectIdentifier>
-    <objectIdentifierType></objectIdentifierType> 
-    <objectIdentifierValue></objectIdentifierValue> 
-  </objectIdentifier>
-  <objectIdentifier>
     <objectIdentifierType>local</objectIdentifierType> 
-    <objectIdentifierValue>1ab</objectIdentifierValue> 
+    <objectIdentifierValue>lab</objectIdentifierValue> 
   </objectIdentifier>
   <objectIdentifier>
     <objectIdentifierType>HANDLE</objectIdentifierType> 
@@ -37,16 +33,12 @@
     <linkingEventIdentifierType>LOCAL</linkingEventIdentifierType> 
     <linkingEventIdentifierValue>local_linking_event_one</linkingEventIdentifierValue> 
   </linkingEventIdentifier>
-  <linkingEventIdentifier>
-    <linkingEventIdentifierType>LOCAL</linkingEventIdentifierType> 
-    <linkingEventIdentifierValue>local_linking_event_two</linkingEventIdentifierValue> 
-  </linkingEventIdentifier>
-  <linkingIntellectualEntityIdentifier>
-    <linkingIntellectualEntityIdentifierType>LOCAL</linkingIntellectualEntityIdentifierType> 
-    <linkingIntellectualEntityIdentifierValue>local_intellectual_entity_statement_one</linkingIntellectualEntityIdentifierValue> 
-  </linkingIntellectualEntityIdentifier>
   <linkingRightsStatementIdentifier>
     <linkingRightsStatementIdentifierType>LOCAL</linkingRightsStatementIdentifierType> 
     <linkingRightsStatementIdentifierValue>local_rights_statement_one</linkingRightsStatementIdentifierValue> 
   </linkingRightsStatementIdentifier>
+  <linkingIntellectualEntityIdentifier>
+    <linkingIntellectualEntityIdentifierType>LOCAL</linkingIntellectualEntityIdentifierType>
+    <linkingIntellectualEntityIdentifierValue>local_intellectual_entity_statement_one</linkingIntellectualEntityIdentifierValue>
+  </linkingIntellectualEntityIdentifier>
 </object>

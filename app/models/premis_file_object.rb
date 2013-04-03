@@ -39,7 +39,7 @@ class PremisFileObject < PremisGeneral
 
   delegate_to 'fodescMetadata', [:object_file_identifierType, :object_file_identifierValue,
                                 :object_file_characteristics_CompositionLevel, :object_file_characteristics_fixitymessageDigestAlgorithm, :object_file_characteristics_fixitymessageDigest, :object_file_characteristics_fixitymessageDigestOriginator, :object_file_characteristics_size, :object_file_characteristics_formatName, :object_file_characteristics_formatVersion, :object_file_characteristics_formatRegistryName, :object_file_characteristics_formatRegistryKey, :object_file_characteristics_formatRegistryRole, :object_file_characteristics_creatingApplicationName, :object_file_characteristics_creatingApplicationVersion, :object_file_characteristics_dateCreatedByApplication,
-                                :object_file_preservationLevelValue, :object_file_preservationLevelDateAssigned,
+                                :object_file_preservationLevelValue, :object_file_preservationLevelRationale, :object_file_preservationLevelDateAssigned,
                                 :object_file_originalName,
                                 :object_file_linkingEventIdentifierType, :object_file_linkingEventIdentifierValue,
                                 :object_file_linkingIntellectualEntityIdentifierType, :object_file_linkingIntellectualEntityIdentifierValue,  
